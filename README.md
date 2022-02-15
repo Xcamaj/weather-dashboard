@@ -1,6 +1,5 @@
 # weather-dashboard
 
-# plan-the-day
 
 ## Purpose
 A website that shows users weather in a certain area
