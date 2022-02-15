@@ -1,4 +1,4 @@
-var startDate = moment().format("MMM Do YY");
+
 var apiWeatherKey = '9f0779280ef21eceac2a12efca6febb5'
 var queryUrl = 'HTTPS://api.openweathermap.org/data/2.5/weather?q=' + userInput + '&appid=' + apiWeatherKey;
 var searchBtn = document.getElementById('searchBtn')
@@ -8,6 +8,7 @@ var res;
 // var currentTemp = document.getElementById('temp');
 // var currentWind = document.getElementById('wind');
 // var currentHumidity = document.getElementById('humidity');
+
 
 
 searchBtn.addEventListener('click', function (getCityWeather) {
@@ -20,6 +21,7 @@ searchBtn.addEventListener('click', function (getCityWeather) {
         .then(function (data) {
             console.log(data);
             res = data
+            var startDate = moment().format("MMM Do");
 
             $('#city-name').empty()
             $('#city-name').text("Location: " + res.name + " " + startDate)
@@ -39,7 +41,9 @@ searchBtn.addEventListener('click', function (getCityWeather) {
                 }).then(function (response) {
                     console.log(response, "response")
                     $('#uvi').empty();
-                    $('#uvi').text("UV Index: " + response.value)
+                    $('#uvi').text("UV Index: " + response.value).addClass("bg-success")
+                    
+                     
 
                 });
 
@@ -47,14 +51,14 @@ searchBtn.addEventListener('click', function (getCityWeather) {
             if (res && res.coord) {
                 var lat = res.coord.lat;
                 var lon = res.coord.lon;
-                fetch("https://api.openweathermap.org/data/2.5/onecall?&appid=" + apiWeatherKey + "&lat=" + lat + "&lon=" + lon + '&units=imperial' + "exclude=hourly,minutely")
+                fetch("https://api.openweathermap.org/data/2.5/onecall?&appid=" + apiWeatherKey + "&lat=" + lat + "&lon=" + lon + '&units=imperial' + "&exclude=hourly,minutely")
                     .then(function (response) {
                         return response.json();
                     })
                     .then(function (data) {
                         console.log(data);
                         res = data
-                        $('#day-1').empty()
+                        $("#day-1")
                         $('#day-1').text(moment().add(1, 'd'))
                         $('#temp-day-1').empty()
                         $('#temp-day-1').text(res.daily[0].temp.day)
